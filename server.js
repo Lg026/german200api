@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
     .then(words => res.json(words))
     .catch(err => res.status(500).json({ error: err.message }));
 });
+console.log(Word.find({}))
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server started on port ${port}`));
