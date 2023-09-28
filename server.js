@@ -14,7 +14,7 @@ const Word = mongoose.model('Word', wordSchema);
 
 mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log('Database connected!')).catch(err => console.log(err));
 
-app.get('/words', (req, res) => {
+app.get('/', (req, res) => {
   Word.find({})
     .then(words => res.json(words))
     .catch(err => res.status(500).json({ error: err.message }));
