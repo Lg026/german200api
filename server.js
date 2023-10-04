@@ -14,7 +14,6 @@ const wordSchema = new mongoose.Schema({
 
 const Word = mongoose.model('Word', wordSchema);
 
-// Increase the pool size to 5
 mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true, poolSize: 5 })
   .then(() => console.log('Database connected!'))
   .catch(err => console.log(err));
