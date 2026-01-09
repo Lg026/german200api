@@ -21,7 +21,18 @@ app.get('/', (req, res) => {
     .then(words => res.json(words))
     .catch(err => res.status(500).json({ error: err.message }));
 });
-console.log(Word.find({}))
+
+app.get('/search', (req, res) => {
+  const q = req.query.q; 
+  if (!q) { return res.status(400).json({ error: "Missing search query parameter 'q'" }); } 
+  Word.find({ $or: [ { German: { $regex: q, $options: 'i' } }, { English: { $regex: q, $options: 'i' } } ] })
+  .then(results => res.json(results)) 
+  .catch(err => res.status(500).json({ error: err.message })); });
+
+app.get('/word/id/:id', (req, res) => {
+  Word.findById(req.params.id) 
+  .then(word => { if (!word) { return res.status(404).json({ error: "Word not found" }); } res.json(word); }) 
+  .catch(err => res.status(500).json({ error: err.message })); });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server started on port ${port}`));
