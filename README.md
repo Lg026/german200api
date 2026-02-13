@@ -31,6 +31,7 @@ GET /word/random
 Returns one random word from the dataset.
 
 Tech Stack
+
 Node.js
 
 Express
